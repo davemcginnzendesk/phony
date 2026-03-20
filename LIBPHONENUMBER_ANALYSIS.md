@@ -114,14 +114,40 @@ Phony.define do
 end
 ```
 
+## Completed Work
+
+### Phase 1: New Zealand (+64) and Brazil (+55)
+
+**New Zealand - Added Missing Patterns:**
+- ✅ Toll-free 080: `80\d{6,8}` (6-8 digits after 80)
+  - `match(/^(80)\d{6}$/) >> split(3, 3)`
+  - `match(/^(80)\d{7}$/) >> split(3, 4)`
+  - `match(/^(80)\d{8}$/) >> split(4, 4)`
+- ✅ Premium 090: `90\d{6,8}` (6-8 digits after 90)
+  - `match(/^(90)\d{6}$/) >> split(3, 3)`
+  - `match(/^(90)\d{7}$/) >> split(3, 4)`
+  - `match(/^(90)\d{8}$/) >> split(4, 4)`
+- ✅ Extended 0900 premium to support 7-8 digits
+
+**Brazil - Added Missing Patterns:**
+- ✅ Premium 500: `500\d{6,7}` (6-7 digits after 500)
+  - `match(/^([59]00)\d{6}$/) >> split(3, 3)`
+  - `match(/^([59]00)\d{7}$/) >> split(3, 4)`
+- ✅ Premium 900: `900\d{6,7}` (6-7 digits after 900)
+
+**Tests:**
+- ✅ New Zealand: 15 examples, 0 failures
+- ✅ Brazil: 88 examples, 0 failures
+
 ## Next Steps
 
 1. ✅ Downloaded LibPhoneNumber metadata to `resources/PhoneNumberMetadata.xml`
 2. ✅ Analyzed country coverage - no missing countries
-3. 🔲 Extract toll-free/premium patterns for Zendesk-supported countries
-4. 🔲 Convert libphonenumber regex to Phony DSL
-5. 🔲 Test patterns against known problematic numbers
-6. 🔲 Submit PR to phony upstream (or use in PhonyRules internally)
+3. ✅ Extract toll-free/premium patterns for Zendesk-supported countries
+4. ✅ Convert libphonenumber regex to Phony DSL (NZ, BR)
+5. ✅ Test patterns against known problematic numbers (NZ, BR)
+6. 🔲 Add patterns for remaining Zendesk-supported countries (see zendesk_patterns.txt)
+7. 🔲 Submit PR to phony upstream (or use in PhonyRules internally)
 
 ## Resources
 
