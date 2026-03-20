@@ -95,12 +95,15 @@ service = %w[100 128 190 191 192 193 194 197 198 199] # State specific numbers w
 
 special_numbers_3_4 = %w[0800]
 special_numbers_4 = %w[3003 4003 4004 4020]
+premium_numbers = %w[500 900] # Premium rate numbers
 
 Phony.define do
   country '55',
           match(/^#{ndcs}9\d{8}$/)     >> split(5, 4) |
           match(/^#{ndcs}[2-5]\d{7}$/) >> split(4, 4) |
-          one_of(special_numbers_3_4)  >> split(3, 4) |
+          one_of(special_numbers_3_4)  >> split(3, 4) |  # Toll-free 0800
+          match(/^([59]00)\d{6}$/)     >> split(3, 3) |  # Premium rate 500/900
+          match(/^([59]00)\d{7}$/)     >> split(3, 4) |  # Premium rate 500/900
           one_of(special_numbers_4)    >> split(4) |
           one_of(service)              >> split(3) |
           fixed(3)                     >> split(3)

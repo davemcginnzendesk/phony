@@ -178,11 +178,15 @@ describe 'country descriptions' do
       end
 
       context 'with special numbers' do
-        it_splits '5508002221234', %w[55 0800 222 1234]
+        it_splits '5508002221234', %w[55 0800 222 1234] # Toll-free
         it_splits '5530032221', %w[55 3003 2221]
         it_splits '5540209999', %w[55 4020 9999]
         it_splits '5540038999', %w[55 4003 8999]
         it_splits '5540048999', %w[55 4004 8999]
+        it_splits '55500123456', %w[55 500 123 456]     # Premium rate
+        it_splits '555001234567', %w[55 500 123 4567]   # Premium rate
+        it_splits '55900123456', %w[55 900 123 456]     # Premium rate
+        it_splits '559001234567', %w[55 900 123 4567]   # Premium rate
       end
 
       context 'with service numbers' do
@@ -945,12 +949,20 @@ describe 'country descriptions' do
 
     describe 'New Zealand' do
       it_splits '6491234567', %w[64 9 123 4567]
-      it_splits '64800123123', %w[64 800 123 123]
-      it_splits '648001231234', %w[64 800 123 1234]
-      it_splits '64508123123', %w[64 508 123 123]     # Toll-free 0508
-      it_splits '645081231234', %w[64 508 123 1234]   # Toll-free 0508
-      it_splits '6490012345', %w[64 900 123 45]       # Premium 0900 (5 digits)
-      it_splits '64900123456', %w[64 900 123 456]     # Premium 0900 (6 digits)
+      it_splits '64800123123', %w[64 800 123 123]      # Toll-free 0800 (6 digits)
+      it_splits '648001231234', %w[64 800 123 1234]    # Toll-free 0800 (7 digits)
+      it_splits '6480123123', %w[64 80 123 123]        # Toll-free 080 (6 digits)
+      it_splits '64801231234', %w[64 80 123 1234]      # Toll-free 080 (7 digits)
+      it_splits '648012312345', %w[64 80 1231 2345]    # Toll-free 080 (8 digits)
+      it_splits '64508123123', %w[64 508 123 123]      # Toll-free 0508 (6 digits)
+      it_splits '645081231234', %w[64 508 123 1234]    # Toll-free 0508 (7 digits)
+      it_splits '6490012345', %w[64 900 123 45]        # Premium 0900 (5 digits)
+      it_splits '64900123456', %w[64 900 123 456]      # Premium 0900 (6 digits)
+      it_splits '649001234567', %w[64 900 123 4567]    # Premium 0900 (7 digits)
+      it_splits '6490012345678', %w[64 900 1234 5678]  # Premium 0900 (8 digits)
+      it_splits '6490123123', %w[64 90 123 123]        # Premium 090 (6 digits)
+      it_splits '64901231234', %w[64 90 123 1234]      # Premium 090 (7 digits)
+      it_splits '649012312345', %w[64 90 1231 2345]    # Premium 090 (8 digits)
     end
 
     describe 'Bhutan (Kingdom of)' do
